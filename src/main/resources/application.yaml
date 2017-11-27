@@ -1,0 +1,7 @@
+camunda:
+  bpm:
+    filter:
+      create: All
+    admin-user:
+      id: admin
+    history-level: full
