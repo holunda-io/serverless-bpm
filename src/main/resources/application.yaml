@@ -5,3 +5,6 @@ camunda:
     admin-user:
       id: admin
     history-level: full
+cloud:
+  aws:
+    region.auto: true

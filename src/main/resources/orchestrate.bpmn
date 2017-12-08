@@ -16,7 +16,7 @@
       <bpmn:incoming>SequenceFlow_0g8f8p1</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="SequenceFlow_0g8f8p1" sourceRef="Task_1ms20mo" targetRef="EndEvent_0wjgwak" />
-    <bpmn:serviceTask id="Task_1ms20mo" name="Echo Function" camunda:class="de.holisticon.serverlessbpm.orchestrator.behaviour.AsyncServiceTask">
+    <bpmn:serviceTask id="Task_1ms20mo" name="Echo Function" camunda:delegateExpression="${echoFunctionDelegate}">
       <bpmn:incoming>SequenceFlow_1p4dggb</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0g8f8p1</bpmn:outgoing>
     </bpmn:serviceTask>

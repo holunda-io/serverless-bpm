@@ -12,7 +12,7 @@
 
     <groupId>de.holisticon.serverless-bpm</groupId>
     <artifactId>orchestrator</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>3</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -39,13 +39,6 @@
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
-            <dependency>
-                <groupId>com.amazonaws</groupId>
-                <artifactId>aws-java-sdk-bom</artifactId>
-                <version>1.11.235</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -59,8 +52,14 @@
             <artifactId>camunda-bpm-spring-boot-starter-rest</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.amazonaws</groupId>
-            <artifactId>aws-java-sdk-sns</artifactId>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-aws-messaging</artifactId>
+            <version>RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-aws-autoconfigure</artifactId>
+            <version>RELEASE</version>
         </dependency>
         <dependency>
             <groupId>com.h2database</groupId>
@@ -87,6 +86,14 @@
             <groupId>org.camunda.bpm.extension</groupId>
             <artifactId>camunda-bpm-mockito</artifactId>
             <version>2.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-test</artifactId>
         </dependency>
     </dependencies>
 
