@@ -18,3 +18,6 @@ Subscribe: arn:aws:sns:eu-central-1:831064628565:cam-echo-response
 ##Configuration
 ###Environment Variables
 SERVER_PORT = 5000
+
+##EC2 Instance
+t2.micro
