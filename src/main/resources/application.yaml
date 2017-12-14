@@ -8,4 +8,4 @@ camunda:
 cloud:
   aws:
     region.auto: true
-    stack.auto: false
+    stack.auto: true
