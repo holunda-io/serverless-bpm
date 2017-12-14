@@ -1,5 +1,6 @@
 package de.holisticon.serverlessbpm.orchestrator;
 
+import lombok.Getter;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,6 +11,7 @@ import javax.annotation.PostConstruct;
 @Component
 @ToString
 @Slf4j
+@Getter
 public class ApplicationInfoBean {
 
     @Value("${ami-id:N/A}")
