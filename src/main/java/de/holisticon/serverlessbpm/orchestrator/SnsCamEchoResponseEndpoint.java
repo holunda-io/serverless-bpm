@@ -1,6 +1,8 @@
 package de.holisticon.serverlessbpm.orchestrator;
 
 import com.amazonaws.services.sns.AmazonSNS;
+import com.amazonaws.services.sns.model.SubscribeResult;
+import com.amazonaws.services.sns.model.Subscription;
 import lombok.extern.slf4j.Slf4j;
 import org.camunda.bpm.engine.RuntimeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,8 @@ import org.springframework.cloud.aws.messaging.endpoint.annotation.NotificationU
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 import static de.holisticon.serverlessbpm.orchestrator.SnsCamEchoResponseEndpoint.SNS_EP_CAM_TEST;
 
@@ -36,9 +40,22 @@ public class SnsCamEchoResponseEndpoint implements ApplicationListener<Applicati
 
     @Override
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
-        String url = "http://" + appInfo.getPublicHostname() + "/" + SnsCamEchoResponseEndpoint.SNS_EP_CAM_TEST;
-        log.info("Subscribing to topic {} with http endpoint {}", SNS_TOPIC_CAM_ECHO_RESPONSE, url);
-        amazonSns.subscribe(SNS_TOPIC_CAM_ECHO_RESPONSE,"http", url);
+        String thisEndpoint = "http://" + appInfo.getPublicHostname() + SnsCamEchoResponseEndpoint.SNS_EP_CAM_TEST;
+
+        List<Subscription> subscriptions = amazonSns.listSubscriptionsByTopic(SNS_TOPIC_CAM_ECHO_RESPONSE).getSubscriptions();
+        boolean notSubscribed = true;
+        for(Subscription subscription : subscriptions) {
+            if (thisEndpoint.equals(subscription.getEndpoint())) {
+                log.info("Found subscription {} on topic {} for endpoint {}",subscription.getSubscriptionArn(), subscription.getTopicArn(), thisEndpoint);
+                notSubscribed = false;
+            }
+        }
+
+        if(notSubscribed) {
+            log.info("Subscribing to topic {} with endpoint {}", SNS_TOPIC_CAM_ECHO_RESPONSE, thisEndpoint);
+            SubscribeResult subscribeResult = amazonSns.subscribe(SNS_TOPIC_CAM_ECHO_RESPONSE, "http", thisEndpoint);
+            log.info("Subscription: {}", subscribeResult.getSubscriptionArn());
+        }
     }
 
     @NotificationMessageMapping
@@ -50,14 +67,15 @@ public class SnsCamEchoResponseEndpoint implements ApplicationListener<Applicati
 
     @NotificationSubscriptionMapping
     public void handleSubscriptionMessage(NotificationStatus status) {
-        log.info("Received Subscribtion Message. Confirming...");
+
+        log.info("Received Subscription Message. Confirming...");
         status.confirmSubscription();
+        log.info("Subscription confirmed");
     }
 
     @NotificationUnsubscribeConfirmationMapping
     public void handleUnsubscribeMessage(NotificationStatus status) {
-        log.info("Received Unsubscribe Message. Resubscribng...");
-        status.confirmSubscription();
+        log.error("Received Unsubscribe Message.");
     }
 
 }
