@@ -14,17 +14,8 @@ import javax.annotation.PostConstruct;
 @Getter
 public class ApplicationInfoBean {
 
-    @Value("${ami-id:N/A}")
-    private String amiId;
-
-    @Value("${hostname:N/A}")
-    private String hostname;
-
-    @Value("${instance-type:N/A}")
-    private String instanceType;
-
-    @Value("${services/domain:N/A}")
-    private String serviceDomain;
+    @Value("${public-hostname:N/A}")
+    private String publicHostname;
 
     @PostConstruct
     public void dump() {

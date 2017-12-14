@@ -36,7 +36,7 @@ public class SnsCamEchoResponseEndpoint implements ApplicationListener<Applicati
 
     @Override
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
-        String url = "http://" + appInfo.getHostname() + "/" + SnsCamEchoResponseEndpoint.SNS_EP_CAM_TEST;
+        String url = "http://" + appInfo.getPublicHostname() + "/" + SnsCamEchoResponseEndpoint.SNS_EP_CAM_TEST;
         log.info("Subscribing to topic {} with http endpoint {}", SNS_TOPIC_CAM_ECHO_RESPONSE, url);
         amazonSns.subscribe(SNS_TOPIC_CAM_ECHO_RESPONSE,"http", url);
     }
