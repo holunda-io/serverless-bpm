@@ -12,7 +12,7 @@
 
     <groupId>de.holisticon.serverless-bpm</groupId>
     <artifactId>orchestrator</artifactId>
-    <version>6</version>
+    <version>8-SNAPSHOT</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -66,6 +66,11 @@
             <artifactId>h2</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.18</version>
+        </dependency>
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.12</version>
@@ -76,11 +81,6 @@
             <artifactId>camunda-bpm-assert</artifactId>
             <version>2.0-alpha2</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.16.18</version>
         </dependency>
         <dependency>
             <groupId>org.camunda.bpm.extension</groupId>
