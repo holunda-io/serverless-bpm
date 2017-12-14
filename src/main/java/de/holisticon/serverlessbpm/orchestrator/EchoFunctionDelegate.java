@@ -29,6 +29,7 @@ public class EchoFunctionDelegate extends AbstractBpmnActivityBehavior {
 
     @Override
     public void signal(ActivityExecution execution, String signalName, Object signalData) throws Exception {
+        log.info("Received signal {} with data {} for execution ID {}", signalName, signalData, execution.getId());
         // leave the service task activity:
         leave(execution);
     }

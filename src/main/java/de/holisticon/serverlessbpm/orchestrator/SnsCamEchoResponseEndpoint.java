@@ -19,14 +19,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
-import static de.holisticon.serverlessbpm.orchestrator.SnsCamEchoResponseEndpoint.SNS_EP_CAM_TEST;
+import static de.holisticon.serverlessbpm.orchestrator.SnsCamEchoResponseEndpoint.SNS_EP_CAM_ECHO_RESPONSE;
 
 @Controller
-@RequestMapping(SNS_EP_CAM_TEST)
+@RequestMapping(SNS_EP_CAM_ECHO_RESPONSE)
 @Slf4j
 public class SnsCamEchoResponseEndpoint implements ApplicationListener<ApplicationReadyEvent> {
 
-    public static final String SNS_EP_CAM_TEST = "/cam-echo-response";
+    public static final String SNS_EP_CAM_ECHO_RESPONSE = "/cam-echo-response";
     public static final String SNS_TOPIC_CAM_ECHO_RESPONSE = "arn:aws:sns:eu-central-1:831064628565:cam-echo-response";
 
     @Autowired
@@ -40,7 +40,7 @@ public class SnsCamEchoResponseEndpoint implements ApplicationListener<Applicati
 
     @Override
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
-        String thisEndpoint = "http://" + appInfo.getPublicHostname() + SnsCamEchoResponseEndpoint.SNS_EP_CAM_TEST;
+        String thisEndpoint = "http://" + appInfo.getPublicHostname() + SnsCamEchoResponseEndpoint.SNS_EP_CAM_ECHO_RESPONSE;
 
         List<Subscription> subscriptions = amazonSns.listSubscriptionsByTopic(SNS_TOPIC_CAM_ECHO_RESPONSE).getSubscriptions();
         boolean notSubscribed = true;
