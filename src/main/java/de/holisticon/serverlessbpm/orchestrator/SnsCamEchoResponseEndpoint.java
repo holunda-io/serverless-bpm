@@ -44,14 +44,14 @@ public class SnsCamEchoResponseEndpoint implements ApplicationListener<Applicati
 
         List<Subscription> subscriptions = amazonSns.listSubscriptionsByTopic(SNS_TOPIC_CAM_ECHO_RESPONSE).getSubscriptions();
         boolean notSubscribed = true;
-        for(Subscription subscription : subscriptions) {
+        for (Subscription subscription : subscriptions) {
             if (thisEndpoint.equals(subscription.getEndpoint())) {
-                log.info("Found subscription {} on topic {} for endpoint {}",subscription.getSubscriptionArn(), subscription.getTopicArn(), thisEndpoint);
+                log.info("Found subscription {} on topic {} for endpoint {}", subscription.getSubscriptionArn(), subscription.getTopicArn(), thisEndpoint);
                 notSubscribed = false;
             }
         }
 
-        if(notSubscribed) {
+        if (notSubscribed) {
             log.info("Subscribing to topic {} with endpoint {}", SNS_TOPIC_CAM_ECHO_RESPONSE, thisEndpoint);
             SubscribeResult subscribeResult = amazonSns.subscribe(SNS_TOPIC_CAM_ECHO_RESPONSE, "http", thisEndpoint);
             log.info("Subscription: {}", subscribeResult.getSubscriptionArn());
@@ -59,11 +59,10 @@ public class SnsCamEchoResponseEndpoint implements ApplicationListener<Applicati
     }
 
     @NotificationMessageMapping
-    public void handleNotificationMessage(@NotificationSubject String executionId, @NotificationMessage String signalName) {
-        log.info("Signalling execution ID {} with signal name {}", executionId, signalName);
-        runtimeService.signal(executionId, signalName, null, null);
+    public void handleNotificationMessage(@NotificationSubject String executionId, @NotificationMessage String signalData) {
+        log.info("Signalling execution ID {} with signal name {}", executionId, signalData);
+        runtimeService.signal(executionId, null, signalData, null);
     }
-
 
     @NotificationSubscriptionMapping
     public void handleSubscriptionMessage(NotificationStatus status) {
