@@ -42,11 +42,13 @@ public class SnsCamEchoResponseEndpoint implements ApplicationListener<Applicati
 
     @Override
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
-        log.info("Checking subscriptions to {}", config.aws.topic.subscribeArn);
+        if(true) return;;
+
+        log.info("Checking subscriptions to {}", config.getAws().getTopic().getSubscribeArn());
 
         String thisEndpoint = "http://" + appInfo.getPublicHostname() + SnsCamEchoResponseEndpoint.SNS_EP_CAM_ECHO_RESPONSE;
 
-        List<Subscription> subscriptions = amazonSns.listSubscriptionsByTopic(config.aws.topic.subscribeArn).getSubscriptions();
+        List<Subscription> subscriptions = amazonSns.listSubscriptionsByTopic(config.getAws().getTopic().getSubscribeArn()).getSubscriptions();
         boolean notSubscribed = true;
         for (Subscription subscription : subscriptions) {
             if (thisEndpoint.equals(subscription.getEndpoint())) {
@@ -56,8 +58,8 @@ public class SnsCamEchoResponseEndpoint implements ApplicationListener<Applicati
         }
 
         if (notSubscribed) {
-            log.info("Subscribing to topic {} with endpoint {}", config.aws.topic.subscribeArn, thisEndpoint);
-            SubscribeResult subscribeResult = amazonSns.subscribe(config.aws.topic.subscribeArn, "http", thisEndpoint);
+            log.info("Subscribing to topic {} with endpoint {}", config.getAws().getTopic().getSubscribeArn(), thisEndpoint);
+            SubscribeResult subscribeResult = amazonSns.subscribe(config.getAws().getTopic().getSubscribeArn(), "http", thisEndpoint);
             log.info("Subscription: {}", subscribeResult.getSubscriptionArn());
         }
     }

@@ -25,8 +25,8 @@ public class EchoFunctionDelegate extends AbstractBpmnActivityBehavior {
     }
 
     public void execute(final ActivityExecution execution) {
-        log.info("Sending {}/{} to {}", execution.getId(), MESSAGE, config.aws.topic.publishArn);
-        notificationMessagingTemplate.sendNotification(config.aws.topic.publishArn, MESSAGE, execution.getId());
+        log.info("Sending {}/{} to {}", execution.getId(), MESSAGE, config.getAws().getTopic().getPublishArn());
+        notificationMessagingTemplate.sendNotification(config.getAws().getTopic().getPublishArn(), MESSAGE, execution.getId());
     }
 
     @Override
