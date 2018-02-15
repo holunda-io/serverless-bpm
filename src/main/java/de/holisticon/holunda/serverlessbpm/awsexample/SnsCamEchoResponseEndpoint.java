@@ -42,8 +42,6 @@ public class SnsCamEchoResponseEndpoint implements ApplicationListener<Applicati
 
     @Override
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
-        if(true) return;;
-
         log.info("Checking subscriptions to {}", config.getAws().getTopic().getSubscribeArn());
 
         String thisEndpoint = "http://" + appInfo.getPublicHostname() + SnsCamEchoResponseEndpoint.SNS_EP_CAM_ECHO_RESPONSE;
