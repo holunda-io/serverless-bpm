@@ -1,4 +1,4 @@
-package de.holisticon.serverlessbpm.aws;
+package de.holisticon.holunda.serverlessbpm.awsexample;
 
 import com.amazonaws.services.sns.AmazonSNS;
 import com.amazonaws.services.sns.model.SubscribeResult;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
-import static de.holisticon.serverlessbpm.aws.SnsCamEchoResponseEndpoint.SNS_EP_CAM_ECHO_RESPONSE;
+import static de.holisticon.holunda.serverlessbpm.awsexample.SnsCamEchoResponseEndpoint.SNS_EP_CAM_ECHO_RESPONSE;
 
 @Controller
 @RequestMapping(SNS_EP_CAM_ECHO_RESPONSE)

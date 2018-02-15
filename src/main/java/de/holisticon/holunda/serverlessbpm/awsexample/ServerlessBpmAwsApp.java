@@ -1,4 +1,4 @@
-package de.holisticon.serverlessbpm.aws;
+package de.holisticon.holunda.serverlessbpm.awsexample;
 
 import org.camunda.bpm.spring.boot.starter.annotation.EnableProcessApplication;
 import org.springframework.boot.SpringApplication;

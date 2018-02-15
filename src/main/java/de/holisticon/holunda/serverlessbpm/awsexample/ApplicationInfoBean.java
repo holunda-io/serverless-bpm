@@ -1,4 +1,4 @@
-package de.holisticon.serverlessbpm.aws;
+package de.holisticon.holunda.serverlessbpm.awsexample;
 
 import lombok.Getter;
 import lombok.ToString;

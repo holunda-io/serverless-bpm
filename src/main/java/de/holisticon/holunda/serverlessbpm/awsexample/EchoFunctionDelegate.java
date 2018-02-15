@@ -1,4 +1,4 @@
-package de.holisticon.serverlessbpm.orchestrator;
+package de.holisticon.holunda.serverlessbpm.awsexample;
 
 import com.amazonaws.services.sns.AmazonSNS;
 import lombok.extern.slf4j.Slf4j;
@@ -12,8 +12,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class EchoFunctionDelegate extends AbstractBpmnActivityBehavior {
 
-    public static final String SNS_TOPIC_CAM_TEST = "arn:aws:sns:eu-central-1:831064628565:cam-test";
     public static final String MESSAGE = "Hello World";
+
+    @Autowired
+    private ServerlessBpmConfiguration config;
 
     private final NotificationMessagingTemplate notificationMessagingTemplate;
 
@@ -22,13 +24,13 @@ public class EchoFunctionDelegate extends AbstractBpmnActivityBehavior {
         notificationMessagingTemplate = new NotificationMessagingTemplate(amazonSns);
     }
 
-    public void execute(final ActivityExecution execution) throws Exception {
-        log.info("Sending {}/{} to {}", execution.getId(), MESSAGE, SNS_TOPIC_CAM_TEST);
-        notificationMessagingTemplate.sendNotification(SNS_TOPIC_CAM_TEST, MESSAGE, execution.getId());
+    public void execute(final ActivityExecution execution) {
+        log.info("Sending {}/{} to {}", execution.getId(), MESSAGE, config.aws.topic.publishArn);
+        notificationMessagingTemplate.sendNotification(config.aws.topic.publishArn, MESSAGE, execution.getId());
     }
 
     @Override
-    public void signal(ActivityExecution execution, String signalName, Object signalData) throws Exception {
+    public void signal(ActivityExecution execution, String signalName, Object signalData) {
         log.info("Received signal {} with data {} for execution ID {}", signalName, signalData, execution.getId());
         execution.setVariable("echoResponse", signalData);
         // leave the service task activity:

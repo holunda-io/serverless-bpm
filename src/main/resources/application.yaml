@@ -9,3 +9,8 @@ cloud:
   aws:
     region.auto: true
     stack.auto: false
+serverlessbpm:
+  aws:
+    topic:
+      publishArn: arn:aws:sns:eu-central-1:831064628565:cam-test
+      subscribeArn: arn:aws:sns:eu-central-1:831064628565:cam-echo-response
