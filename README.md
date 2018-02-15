@@ -126,18 +126,12 @@ autoscaling:DescribeAutoScalingInstances
 cloudformation:Describe*
 ```
 
-## Configuration
+## Konfiguration
 
 ### Umgebungsvariablen
 
+```
 SERVER_PORT = 5000
-
-### application.yaml
-
+APPLICATION_AWS_TOPIC_PUBLISH_ARN = arn:aws:sns:eu-central-1:831064628565:cam-test
+APPLICATION_AWS_TOPIC_SUBSCRIBE_ARN = arn:aws:sns:eu-central-1:831064628565:cam-echo-response
 ```
-serverless-bpm:
-  aws:
-    publishTopicArn: arn:aws:sns:eu-central-1:831064628565:cam-test
-    subscribeTopicArn: arn:aws:sns:eu-central-1:831064628565:cam-echo-response
-```
-
